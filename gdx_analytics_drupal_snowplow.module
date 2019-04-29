@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains gdx_analytics_drupal_snowplow.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function gdx_analytics_drupal_snowplow_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the gdx_analytics_drupal_snowplow module.
+    case 'help.page.gdx_analytics_drupal_snowplow':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This is the GDX Analytics Drupal Snowplow module.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
