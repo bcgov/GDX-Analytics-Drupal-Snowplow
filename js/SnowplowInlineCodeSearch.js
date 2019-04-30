@@ -2,7 +2,6 @@
  * @file
  */
 ((drupalSettings) => {
-  console.log(drupalSettings['gdx_collector']); 
   // <!-- Snowplow starts plowing - Standalone Search vA.2.10.2 -->
   ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
     p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
@@ -22,23 +21,7 @@
   window.snowplow('enableActivityTracking', 30, 30); // Ping every 30 seconds after 30 seconds
   window.snowplow('enableLinkClickTracking');
   window.snowplow('trackPageView');
-  // Change the 'Search term parameter' to what is being used on the site, generally it is q.
-  var searchParameter = 'Search term parameter'
-  if (window.location.search.indexOf(searchParameter) > -1) {
-    window.snowplow('trackSiteSearch',
-      getUrlParamArray(searchParameter,'')
-    );
-  }
-
-  function getUrlParamArray(param, defaultValue) {
-    var vars = [];
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-      if ( key === param ) {
-        vars.push(value);
-      }
-    });
-    return vars;
-  }
+  window.snowplow('trackSiteSearch', drupalSettings['search_terms']);
   //<!-- Snowplow stop plowing -->
 })(drupalSettings);
 
