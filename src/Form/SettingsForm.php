@@ -31,18 +31,16 @@ class SettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('gdx_analytics_drupal_snowplow.settings');
-    $form['gdx_development_collector'] = [
-      '#type' => 'radio',
-      '#title' => $this->t('Development Mode'),
-      '#description' => $this->t('Send analytics data to the development collector environment.'),
-      '#default_value' => $config->get('gdx_development_collector'),
-    ];
-    $form['gdx_production_collector'] = [
-      '#type' => 'radio',
-      '#title' => $this->t('Production Mode'),
-      '#description' => $this->t('Send analytics data to the production collector environment.'),
-      '#default_value' => $config->get('gdx_production_collector'),
-    ];
+
+    $form['gdx_collector_mode'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Select Collector Environment'),
+      '#default_value' => $config->get('gdx_collector_mode'),
+      '#options' => array(
+        0 => $this->t(' Development'),
+        1 => $this->t(' Production'),
+      )
+    ]; 
     return parent::buildForm($form, $form_state);
   }
 
@@ -60,8 +58,7 @@ class SettingsForm extends ConfigFormBase {
     parent::submitForm($form, $form_state);
 
     $this->config('gdx_analytics_drupal_snowplow.settings')
-      ->set('gdx_development_collector', $form_state->getValue('gdx_development_collector'))
-      ->set('gdx_production_collector', $form_state->getValue('gdx_production_collector'))
+      ->set('gdx_collector_mode', $form_state->getValue('gdx_collector_mode'))
       ->save();
   }
 
