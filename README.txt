@@ -19,6 +19,12 @@ CONTENTS OF THIS FILE
    for further information.
 
  * Configuration
+
+  * Configure user permissions in Administration » Configuration » System 
+    » GDX Analytics Drupal Snowplow » Config_settings:
+
+    Use this Configuration Page to switcvh between development and
+    production modes. 
  
  * Troubleshooting
  
