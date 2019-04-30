@@ -3,3 +3,5 @@ gdx_analytics_drupal_snowplow:
   js: 
     js/Snowplow_inline_code.js
     js/Snowplow_inline_code_search.js
+  dependencies:
+    - core/drupalSettings
