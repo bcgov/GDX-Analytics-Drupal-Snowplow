@@ -22,3 +22,12 @@ function gdx_analytics_drupal_snowplow_help($route_name, RouteMatchInterface $ro
     default:
   }
 }
+
+/**
+ * Implements hook_page_attachments().
+ */
+function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
+  $config = \Drupal::config('gdx_analytics_drupal_snowplow.settings');
+  $page['#attached']['library'][] = 'gdx_analytics_drupal_snowplow/gdx_analytics_drupal_snowplow.webtrackers';
+
+}
