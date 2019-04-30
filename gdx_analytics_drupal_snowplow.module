@@ -28,6 +28,8 @@ function gdx_analytics_drupal_snowplow_help($route_name, RouteMatchInterface $ro
  */
 function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
   $config = \Drupal::config('gdx_analytics_drupal_snowplow.settings');
-  $page['#attached']['library'][] = 'gdx_analytics_drupal_snowplow/gdx_analytics_drupal_snowplow.webtrackers';
+  $collector = $config->getRawData()['gdx_collector_mode'] == 0 ? 'spm.gov.bc.ca' : 'spt.gov.bc.ca';
 
+  $page['#attached']['drupalSettings']['gdx_collector'] = $collector;
+  $page['#attached']['library'][] = 'gdx_analytics_drupal_snowplow/gdx_analytics_drupal_snowplow.webtrackers';
 }
