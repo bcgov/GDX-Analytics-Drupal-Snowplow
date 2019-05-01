@@ -29,18 +29,15 @@ function gdx_analytics_drupal_snowplow_help($route_name, RouteMatchInterface $ro
 function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
   $config = \Drupal::config('gdx_analytics_drupal_snowplow.settings');
   $collector = $config->getRawData()['gdx_collector_mode'];
-  $script_version = $config->getRawData()['gdx_analytics_snowplow_version'];
   $script_uri = $config->getRawData()['gdx_analytics_snowplow_script_uri'];
 
   $page['#attached']['drupalSettings']['gdx_collector'] = $collector;
   
   if(Drupal::request()->attributes->get('_title') == 'Search') {
     $page['#attached']['drupalSettings']['search_terms'] = explode(' ', Drupal::request()->query->all()['keys']);
-    $page['#attached']['drupalSettings']['script_version'] = $script_version;
     $page['#attached']['drupalSettings']['script_uri'] = $script_uri;
     $page['#attached']['library'][] = 'gdx_analytics_drupal_snowplow/gdx_analytics_drupal_snowplow.webtracker_search';
   } else {
-    $page['#attached']['drupalSettings']['script_version'] = $script_version;
     $page['#attached']['drupalSettings']['script_uri'] = $script_uri;
     $page['#attached']['library'][] = 'gdx_analytics_drupal_snowplow/gdx_analytics_drupal_snowplow.webtracker_search';
     $page['#attached']['library'][] = 'gdx_analytics_drupal_snowplow/gdx_analytics_drupal_snowplow.webtracker'; 
