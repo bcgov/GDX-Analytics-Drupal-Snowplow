@@ -33,14 +33,29 @@ class SettingsForm extends ConfigFormBase {
     $config = $this->config('gdx_analytics_drupal_snowplow.settings');
 
     $form['gdx_collector_mode'] = [
-      '#type' => 'radios',
-      '#title' => $this->t('Select Collector Environment'),
+      '#type' => 'textfield',
+      '#title' => $this->t('Enter Collector Environment'),
       '#default_value' => $config->get('gdx_collector_mode'),
-      '#options' => array(
-        0 => $this->t(' Development'),
-        1 => $this->t(' Production'),
-      )
+      '#maxlength' => 128,
+      '#size' => 60,
+      '#required' => true,
+    ];
+    $form['gdx_analytics_snowplow_version'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Enter Snowplow Version Number'),
+      '#default_value' => $config->get('gdx_analytics_snowplow_version'),
+      '#maxlength' => 128,
+      '#size' => 60,
+      '#required' => true,
     ]; 
+    $form['gdx_analytics_snowplow_script_uri'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Enter Snowplow tracking script URI'),
+      '#default_value' => $config->get('gdx_analytics_snowplow_script_uri'),
+      '#maxlength' => 256,
+      '#size' => 60,
+      '#required' => true,
+    ];
     return parent::buildForm($form, $form_state);
   }
 
@@ -59,6 +74,8 @@ class SettingsForm extends ConfigFormBase {
 
     $this->config('gdx_analytics_drupal_snowplow.settings')
       ->set('gdx_collector_mode', $form_state->getValue('gdx_collector_mode'))
+      ->set('gdx_collector_mode', $form_state->getValue('gdx_analytics_snowplow_version'))
+      ->set('gdx_collector_mode', $form_state->getValue('gdx_analytics_snowplow_script_uri'))
       ->save();
   }
 
