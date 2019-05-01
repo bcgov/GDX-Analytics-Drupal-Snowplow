@@ -74,8 +74,8 @@ class SettingsForm extends ConfigFormBase {
 
     $this->config('gdx_analytics_drupal_snowplow.settings')
       ->set('gdx_collector_mode', $form_state->getValue('gdx_collector_mode'))
-      ->set('gdx_collector_mode', $form_state->getValue('gdx_analytics_snowplow_version'))
-      ->set('gdx_collector_mode', $form_state->getValue('gdx_analytics_snowplow_script_uri'))
+      ->set('gdx_analytics_snowplow_version', $form_state->getValue('gdx_analytics_snowplow_version'))
+      ->set('gdx_analytics_snowplow_script_uri', $form_state->getValue('gdx_analytics_snowplow_script_uri'))
       ->save();
   }
 
