@@ -1,6 +1,4 @@
-# GDX-Analytics-Drupal-Snowplow
-   
-## Introduction
+## GDX-Analytics-Drupal-Snowplow
 
   The GDX Analytics Drupal Snowplow module installs and runs Snowplow 
   Javascript web trackers, and provides an interface to configure them.
