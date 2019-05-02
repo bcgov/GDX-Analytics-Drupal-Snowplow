@@ -1,20 +1,17 @@
-CONTENTS OF THIS FILE
----------------------
+# GDX-Analytics-Drupal-Snowplow
    
- * Introduction
----------------
+## Introduction
 
   The GDX Analytics Drupal Snowplow module installs and runs Snowplow 
   Javascript web trackers, and provides an interface to configure them.
 
- * Requirements
+## Requirements
  
- * Recommended modules
+### Recommended modules
 
- * Installation
- ------------
+##Installation
  
- * Install as you would normally install a contributed Drupal module. Visit:
+  Install as you would normally install a contributed Drupal module. Visit:
    https://www.drupal.org/documentation/install/modules-themes/modules-7
    for further information.
 
@@ -24,20 +21,19 @@ CONTENTS OF THIS FILE
    4) Navigate to admin » config » gdx_analytics_drupal_snowplow » config_settings and enter
       the collector environment, snowplow version number, and snowplow tracking script uri.
 
- * Configuration
+## Configuration
 
-  * Configure settings in Administration » Configuration » System 
+  Configure settings in Administration » Configuration » System 
     » GDX Analytics Drupal Snowplow » Config_settings:
 
     Use this Configuration Page to set the collector version, script version, and specify
     the uri of the tracking script.
  
- * Troubleshooting
+## Troubleshooting
  
- * FAQ
+## FAQ
 
- * Maintainers
- -------------
+## Maintainers
 
    Current Maintainers
-   * Brendan Jennings (bjenning) - https://www.drupal.org/u/bjenning
+   - Brendan Jennings (bjenning) - https://www.drupal.org/u/bjenning
