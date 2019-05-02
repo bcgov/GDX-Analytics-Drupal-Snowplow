@@ -12,16 +12,15 @@
   for further information.
 
   In your drupal installation, change directories to your sites/modules/custom folder.
-  Clone the project from github: https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow
-  Install the module in admin » extend
+  Clone the project from github: https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow.
+  Install the module in admin » extend.
   Navigate to admin » config » gdx_analytics_drupal_snowplow » config_settings and enter
-    the collector environment, snowplow version number, and snowplow tracking script uri.
+  the collector environment, snowplow version number, and snowplow tracking script uri.
 
 ## Configuration
 
   Configure settings in Administration » Configuration » System 
-    » GDX Analytics Drupal Snowplow » Config_settings
+    » GDX Analytics Drupal Snowplow » Config_settings.
     
   Use this Configuration Page to set the collector version, script version, and specify
-  the uri of the tracking script 
-    
+  the uri of the tracking script.
