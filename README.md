@@ -6,6 +6,11 @@
 ## Project Status
 
   This project is currently under development.
+  
+## Relevant Repositories
+[GDX-Analytics/](https://github.com/bcgov/GDX-Analytics/)
+
+  Represents an instance of Government of British Columbia’s Snowplow tracking. This includes pushing custom events to the  Snowplow Tracker, and generation of cryptographically signed SSO embed URL pointing to a dashboard.
 
 ## Installation
  
