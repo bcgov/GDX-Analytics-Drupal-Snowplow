@@ -34,7 +34,7 @@
 
 ## Getting Help
 
-For Web Analytics help, please contact the GDX Service Desk via [GCPE GDX Client Service Desk Portal](https://apps.gcpe.gov.bc.ca/jira/servicedesk/customer/portal/9). For inquiries about starting a new analytics account please contact the GDX Analytics Team.
+For any questions regarding this project, please contact the GDX Analytics Team.
 
 ## Contributors
 
