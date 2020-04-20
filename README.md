@@ -5,7 +5,7 @@
   
 ## Project Status
 
-  This project is currently under development and is not ready for production.
+  This project is currently under development.
   
 ## Relevant Repositories
 [GDX-Analytics/](https://github.com/bcgov/GDX-Analytics/)
