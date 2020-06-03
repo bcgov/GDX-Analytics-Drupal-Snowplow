@@ -9,7 +9,7 @@
   
 ## Project Status
 
-  This project is currently under development.
+This project is currently under development and actively supported by the GDX Analytics Team.
   
 ## Relevant Repositories
 [GDX-Analytics/](https://github.com/bcgov/GDX-Analytics/)
