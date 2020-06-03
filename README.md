@@ -3,6 +3,10 @@
   The GDX Analytics Drupal Snowplow module installs and runs Snowplow 
   Javascript web trackers, and provides an interface to configure them.
   
+## Requirements  
+
+  This module requires Drupal 8.
+  
 ## Project Status
 
   This project is currently under development.
@@ -32,9 +36,9 @@
   Use this Configuration Page to set the collector version, script version, and specify
   the uri of the tracking script.
 
-## Getting Help
-
-For any questions regarding this project, please contact the GDX Analytics Team.
+## Getting Help or Reporting an Issue
+ 
+For any questions regarding this project, or for inquiries about starting a new analytics account, please contact the GDX Analytics Team.
 
 ## Contributors
 
