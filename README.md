@@ -42,7 +42,7 @@ For any questions regarding this project, or for inquiries about starting a new 
 
 ## Contributors
 
-The GDX Analytics Team are the main contributors to this project.
+The GDX Analytics Team are the main contributors to this project and maintain the code.
 
 ## License
 
