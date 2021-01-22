@@ -2,7 +2,7 @@
  * @file
  */
 ((drupalSettings) => {  
-  // <!-- Snowplow starts plowing - Standalone vA.2.10.2 -->
+  // <!-- Snowplow starts plowing - Standalone vE.2.14.0 -->
   ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
     p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
     };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
@@ -10,6 +10,7 @@
    var collector = drupalSettings['gdx_collector'];
     window.snowplow('newTracker','rt',collector, {
      appId: "Snowplow_standalone",
+     cookieLifetime: 86400 * 548,
      platform: 'web',
      post: true,
      forceSecureTracker: true,
