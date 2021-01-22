@@ -22,7 +22,9 @@
   window.snowplow('enableActivityTracking', 30, 30); // Ping every 30 seconds after 30 seconds
   window.snowplow('enableLinkClickTracking');
   window.snowplow('trackPageView');
-  window.snowplow('trackSiteSearch', drupalSettings['search_terms']);
+  if(drupalSettings['search']) {
+    window.snowplow('trackSiteSearch', drupalSettings['search_terms']);
+  }
   //<!-- Snowplow stop plowing -->
 })(drupalSettings);
 
