@@ -64,15 +64,16 @@ function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
 function handleAdminRoutes($logger, $messenger) {
   // Create link for configuration.
   $link = Link::fromTextAndUrl(GDX_ANALYTICS_WARNING_CONFIG_LINK, Url::fromRoute(GDX_ANALYTICS_SETTINGS_FORM_ROUTE));
-  
+
   // Check if configuration is incomplete and display appropriate message.
-  if (isConfigurationIncomplete($logger, $messenger)) {
-    if ($route_name === GDX_ANALYTICS_SETTINGS_FORM_ROUTE) {
-      $messenger->addWarning(GDX_ANALYTICS_WARNING_CONFIG);
-    } else {
-      $messenger->addWarning($link);
-    }
-  }
+  // commenting this out until it's updated upstream - where does $route_name come from???
+  //  if (isConfigurationIncomplete($logger, $messenger)) {
+  //    if ($route_name === GDX_ANALYTICS_SETTINGS_FORM_ROUTE) {
+  //      $messenger->addWarning(GDX_ANALYTICS_WARNING_CONFIG);
+  //    } else {
+  //      $messenger->addWarning($link);
+  //    }
+  //  }
 }
 
 /**
@@ -102,6 +103,8 @@ function handleNonAdminRoutes(&$page, $logger) {
     } elseif ($settings['gdx_analytics_snowplow_version'] == 0) {
       // Handle Web tracker WITHOUT search function
       $page['#attached']['library'][] = GDX_ANALYTICS_WEBTRACKER;
+    } elseif ($settings['gdx_analytics_snowplow_version'] === 'Healthlink Inline Search vC.2.14.0') {
+      handleTrackerWithSearch($page, $settings);
     }
     
   } catch (\Exception $e) {

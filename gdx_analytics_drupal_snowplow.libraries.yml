@@ -13,3 +13,11 @@ gdx_analytics_drupal_snowplow.webtracker_search:
     js/SnowplowInlineCodeSearch.js: {}
   dependencies:
     - core/drupalSettings
+
+gdx_analytics_drupal_snowplow.webtracker_hlbc:
+  version: 1.x
+  header: true
+  js:
+    js/SnowplowInlineCodeHLBC.js: {}
+  dependencies:
+    - core/drupalSettings
