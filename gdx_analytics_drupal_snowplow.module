@@ -66,14 +66,13 @@ function handleAdminRoutes($logger, $messenger) {
   $link = Link::fromTextAndUrl(GDX_ANALYTICS_WARNING_CONFIG_LINK, Url::fromRoute(GDX_ANALYTICS_SETTINGS_FORM_ROUTE));
 
   // Check if configuration is incomplete and display appropriate message.
-  // commenting this out until it's updated upstream - where does $route_name come from???
-  //  if (isConfigurationIncomplete($logger, $messenger)) {
-  //    if ($route_name === GDX_ANALYTICS_SETTINGS_FORM_ROUTE) {
-  //      $messenger->addWarning(GDX_ANALYTICS_WARNING_CONFIG);
-  //    } else {
-  //      $messenger->addWarning($link);
-  //    }
-  //  }
+  if (isConfigurationIncomplete($logger, $messenger)) {
+    if ($route_name === GDX_ANALYTICS_SETTINGS_FORM_ROUTE) {
+      $messenger->addWarning(GDX_ANALYTICS_WARNING_CONFIG);
+    } else {
+      $messenger->addWarning($link);
+    }
+  }
 }
 
 /**
@@ -103,10 +102,8 @@ function handleNonAdminRoutes(&$page, $logger) {
     } elseif ($settings['gdx_analytics_snowplow_version'] == 0) {
       // Handle Web tracker WITHOUT search function
       $page['#attached']['library'][] = GDX_ANALYTICS_WEBTRACKER;
-    } elseif ($settings['gdx_analytics_snowplow_version'] === 'Healthlink Inline Search vC.2.14.0') {
-      handleTrackerWithSearch($page, $settings);
     }
-    
+
   } catch (\Exception $e) {
     // Log the exception and display a message
     $logger->error('Error processing non-admin routes: @message', ['@message' => $e->getMessage()]);
@@ -122,7 +119,7 @@ function handleTrackerWithSearch(&$page, $settings) {
 
   // Retreive the comma separated search path(s) from the settings
   $allowed_paths = explode(',', $settings['gdx_analytics_search_path']);
-  
+
   // Check if any of the allowed search paths are a substring of the current URI.
   $is_search_page = !empty(array_filter($allowed_paths, function ($allowed_path) use ($curr_uri) {
     return strpos($curr_uri, trim($allowed_path)) !== false;
