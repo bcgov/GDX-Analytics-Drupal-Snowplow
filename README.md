@@ -8,7 +8,7 @@
 
   This module requires Drupal 9.
   
-  You can download a depricated Drupal 8 module here.
+  You can download a depricated Drupal 8 module [here](https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow/blob/main/GDX-Analytics-Drupal-Snowplow-Drupal8.zip).
   
 ## Project Status
 
