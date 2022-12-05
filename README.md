@@ -7,6 +7,8 @@
 ## Requirements  
 
   This module requires Drupal 9.
+
+  A zipped Drupal 7 module is available as a stand-alone file: GDX-Analytics-Snowplow-Drupal7.zip.
   
 ## Project Status
 
