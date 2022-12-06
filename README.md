@@ -8,7 +8,7 @@
 
   This module requires Drupal 9.
 
-  A zipped Drupal 8 module is available as a stand-alone folder: [GDX-Analytics-Snowplow-Drupal8.zip](https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow/blob/d9/GDX-Analytics-Snowplow-Drupal8.zip).
+  A zipped Drupal 8 module is available as a stand-alone folder: [GDX-Analytics-Snowplow-Drupal8.zip](https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow/blob/e70bd464d2c1582866c1d7cbaeccf69f423cb423/GDX-Analytics-Snowplow-Drupal8.zip).
   
 ## Project Status
 
