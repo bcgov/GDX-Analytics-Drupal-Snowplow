@@ -62,7 +62,7 @@ function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
         $messenger->addWarning(t('Please Configure Your GDX Analytics Drupal Snowplow Module.<br>'
                            . 'For assistance with filling out this form, contact the GDX Analytics Team.'));
       }else {
-        $messenger->addWarning($link);
+      $messenger->addWarning($link);
       }
     }
   }

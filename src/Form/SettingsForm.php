@@ -31,7 +31,7 @@ class SettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('gdx_analytics_drupal_snowplow.settings');
-
+    
     $form['gdx_collector_mode'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Enter Collector Environment'),
