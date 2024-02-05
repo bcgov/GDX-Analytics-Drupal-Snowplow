@@ -47,8 +47,9 @@ function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
   $curr_route_name = \Drupal::routeMatch()->getRouteName();
   $form_route = Url::fromRoute('gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form');
   $link = Link::fromTextAndUrl('Please configure your GDX Analytics Drupal Snowplow module', $form_route);
+  
   //Search
-  if($curr_route_name == 'view.search_site_content.page_1') {
+  if($curr_route_name == 'search.view_node_search') {
     $page['#attached']['drupalSettings']['search'] = true;
   }
 
@@ -69,15 +70,14 @@ function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
 
   // Attach the tracking code to front-end pages.
   if(!$admin_context->isAdminRoute()){
+    $page['#attached']['drupalSettings']['script_uri'] = $script_uri;
     if($snowplow_version == 1) {
-      if(!empty(Drupal::request()->query->all()['search_api_fulltext'])) {
-        $page['#attached']['drupalSettings']['search_terms'] = explode(' ', Drupal::request()->query->all()['search_api_fulltext']);
+      $std_key = Drupal::request()->query->get('keys');
+      if(!empty($std_key)) {
+        $page['#attached']['drupalSettings']['search_terms'] = explode(' ', $std_key);
       }
-      $page['#attached']['drupalSettings']['script_uri'] = $script_uri;
       $page['#attached']['library'][] = 'gdx_analytics_drupal_snowplow/gdx_analytics_drupal_snowplow.webtracker_search';
     } elseif ($snowplow_version == 0) {
-      $admin_context = \Drupal::service('router.admin_context');
-      $page['#attached']['drupalSettings']['script_uri'] = $script_uri;
       $page['#attached']['library'][] = 'gdx_analytics_drupal_snowplow/gdx_analytics_drupal_snowplow.webtracker'; 
     }
   }
