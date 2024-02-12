@@ -48,7 +48,7 @@ function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
   $form_route = Url::fromRoute('gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form');
   $link = Link::fromTextAndUrl('Please configure your GDX Analytics Drupal Snowplow module', $form_route);
   
-  //Search
+  // Look for standard search default route and enable search event.
   if($curr_route_name == 'search.view_node_search') {
     $page['#attached']['drupalSettings']['search'] = true;
   }
@@ -68,7 +68,7 @@ function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
     }
   }
 
-  // Attach the tracking code to front-end pages.
+  // Attach the tracking code to front-end pages based on the configuration
   if(!$admin_context->isAdminRoute()){
     $page['#attached']['drupalSettings']['script_uri'] = $script_uri;
     if($snowplow_version == 1) {
