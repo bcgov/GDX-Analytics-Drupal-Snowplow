@@ -11,6 +11,8 @@
 ## Project Status
 
 This project is currently under development and actively supported by the GDX Analytics Team.
+
+This 3.0 version reverts to using Drupal standard search. If you are currently using the 2.0 version with Search API, do not upgrade to 3.0. A future version of the 3.x will resolve this issue.
   
 ## Relevant Repositories
 [GDX-Analytics/](https://github.com/bcgov/GDX-Analytics/)
