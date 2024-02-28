@@ -39,18 +39,20 @@ function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
   //Configuration file for default settings. Initially empty, gets updated with the form inputs.
   $config = \Drupal::config('gdx_analytics_drupal_snowplow.settings');
   
-  //set collector, script uri, app_id, and snowplow_version from the config file
+  //set collector, script uri, app_id, snowplow_version and search path from the config file
   $collector = $config->getRawData()['gdx_collector_mode'];
   $script_uri = $config->getRawData()['gdx_analytics_snowplow_script_uri'];
   $app_id = $config->getRawData()['gdx_analytics_app_id'];
   $snowplow_version = $config->getRawData()['gdx_analytics_snowplow_version'];
+  $search_path = $config->getRawData()['gdx_analytics_search_path'];
 
   // The #attached key is used to attach JavaScript assets set earlier. This setting will be available to JavaScript running on the client side,
   $page['#attached']['drupalSettings']['gdx_collector'] = $collector;
   $page['#attached']['drupalSettings']['app_id'] = $app_id;
   $page['#attached']['drupalSettings']['snowplow_version'] = $snowplow_version;
+  $page['#attached']['drupalSettings']['search_path'] = $search_path;
   
-  // Will use to check if the current route is an administrative route.
+  // Will use this to check if the current route is an administrative route.
   $admin_context = \Drupal::service('router.admin_context');
 
   // Get route info and set up link to settings form. This warning shows after module has been installed but no configurations are set.
@@ -81,21 +83,22 @@ function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
       $curr_uri = \Drupal::request()->getRequestUri();
       //echo "<script>console.log('$curr_uri');</script>";
       
-      // Check if the URI contains "/search"
-      if (strpos($curr_uri, '/search') !== false) {
+      // Check if the URI contains the search path (default path is '/search')
+      if (strpos($curr_uri, $search_path) !== false) {
 
         // Parse the URI to get the query parameters
         $queryString = parse_url($curr_uri, PHP_URL_QUERY);
         parse_str($queryString, $queryParameters);
 
-        // Initialize an empty array and store search parameter values
-        $searchTerms = [];
+        // Initialize an empty array, store search parameter values and get the first array element
+        // $searchTerms = [];
 
-        foreach ($queryParameters as $value) {
-            $searchTerms[] = $value;
-        }
+        // foreach ($queryParameters as $value) {
+        //     $searchTerms[] = $value;
+        // }
 
-        $std_key = reset($searchTerms);
+        // $std_key = reset($searchTerms);
+        $std_key = reset($queryParameters);
 
       }
 

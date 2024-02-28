@@ -59,10 +59,10 @@ class SettingsForm extends ConfigFormBase {
       '#size' => 60,
       '#required' => true,
     ];
-    $form['gdx_analytics_search_route'] = [
+    $form['gdx_analytics_search_path'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Enter Searh Route'),
-      '#default_value' => $config->get('gdx_analytics_search_route'),
+      '#default_value' => $config->get('gdx_analytics_search_path'),
       '#description' => $this->t('If you are using a search module other than Standard Search, change this search path to the path you require.'),
       '#maxlength' => 256,
       '#size' => 60,
@@ -96,7 +96,7 @@ class SettingsForm extends ConfigFormBase {
       ->set('gdx_analytics_snowplow_version', $form_state->getValue('gdx_analytics_snowplow_version'))
       ->set('gdx_analytics_snowplow_script_uri', $form_state->getValue('gdx_analytics_snowplow_script_uri'))
       ->set('gdx_analytics_app_id', $form_state->getValue('gdx_analytics_app_id'))
-      ->set('gdx_analytics_search_route', $form_state->getValue('gdx_analytics_search_route'))
+      ->set('gdx_analytics_search_path', $form_state->getValue('gdx_analytics_search_path'))
       ->save();
   }
 
