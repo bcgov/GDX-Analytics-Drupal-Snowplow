@@ -9,7 +9,6 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 
-
 /**
  * Implements hook_help().
  * The purpose of the function is to provide users with relevant help documentation when they access specific
@@ -28,7 +27,6 @@ function gdx_analytics_drupal_snowplow_help($route_name, RouteMatchInterface $ro
   }
 }
 
-
 /**
  * Implements hook_page_attachments().
  * This function is executed during the page building process,
@@ -36,10 +34,10 @@ function gdx_analytics_drupal_snowplow_help($route_name, RouteMatchInterface $ro
  */
 function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
   
-  //Configuration file for default settings. Initially empty, gets updated with the form inputs.
+  // Configuration file for default settings. Initially empty, gets updated with the form inputs.
   $config = \Drupal::config('gdx_analytics_drupal_snowplow.settings');
   
-  //set collector, script uri, app_id, snowplow_version and search path from the config file
+  // Set collector, script uri, app_id, snowplow_version and search path from the config file
   $collector = $config->getRawData()['gdx_collector_mode'];
   $script_uri = $config->getRawData()['gdx_analytics_snowplow_script_uri'];
   $app_id = $config->getRawData()['gdx_analytics_app_id'];
@@ -52,13 +50,13 @@ function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
   $page['#attached']['drupalSettings']['snowplow_version'] = $snowplow_version;
   $page['#attached']['drupalSettings']['search_path'] = $search_path;
   
-  // Will use this to check if the current route is an administrative route.
-  $admin_context = \Drupal::service('router.admin_context');
-
   // Get route info and set up link to settings form. This warning shows after module has been installed but no configurations are set.
   $curr_route_name = \Drupal::routeMatch()->getRouteName();
   $form_route = Url::fromRoute('gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form');
   $link = Link::fromTextAndUrl('Please configure your GDX Analytics Drupal Snowplow module', $form_route);
+  
+  // Will use this to check if the current route is an administrative route.
+  $admin_context = \Drupal::service('router.admin_context');
   
   // Retrieves the messenger service instance and set admin warning message if settings form is not complete
   if($admin_context->isAdminRoute()){
@@ -80,26 +78,15 @@ function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
     $page['#attached']['drupalSettings']['script_uri'] = $script_uri;
     if($snowplow_version == 1) {
 
-      $curr_uri = \Drupal::request()->getRequestUri();
-      //echo "<script>console.log('$curr_uri');</script>";
-      
       // Check if the URI contains the search path (default path is '/search')
+      $curr_uri = \Drupal::request()->getRequestUri();
+      
       if (strpos($curr_uri, $search_path) !== false) {
 
-        // Parse the URI to get the query parameters
+        // Parse the URI and get the search query parameters
         $queryString = parse_url($curr_uri, PHP_URL_QUERY);
         parse_str($queryString, $queryParameters);
-
-        // Initialize an empty array, store search parameter values and get the first array element
-        // $searchTerms = [];
-
-        // foreach ($queryParameters as $value) {
-        //     $searchTerms[] = $value;
-        // }
-
-        // $std_key = reset($searchTerms);
         $std_key = reset($queryParameters);
-
       }
 
       if(!empty($std_key)) {
