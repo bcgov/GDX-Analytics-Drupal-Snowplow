@@ -9,8 +9,11 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 
+
 /**
  * Implements hook_help().
+ * The purpose of the function is to provide users with relevant help documentation when they access specific
+ * routes within the Drupal administration interface related to the module
  */
 function gdx_analytics_drupal_snowplow_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
@@ -25,39 +28,41 @@ function gdx_analytics_drupal_snowplow_help($route_name, RouteMatchInterface $ro
   }
 }
 
+
 /**
  * Implements hook_page_attachments().
+ * This function is executed during the page building process,
+ * after the main content of the page has been rendered but before the page is sent to the browser.
  */
 function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
-  //config file for default setting - current empty - gets updated when form is used
+  
+  //Configuration file for default settings. Initially empty, gets updated with the form inputs.
   $config = \Drupal::config('gdx_analytics_drupal_snowplow.settings');
-  //we set collector, script uri, app_id, and snowplow_version from the config file
+  
+  //set collector, script uri, app_id, and snowplow_version from the config file
   $collector = $config->getRawData()['gdx_collector_mode'];
   $script_uri = $config->getRawData()['gdx_analytics_snowplow_script_uri'];
   $app_id = $config->getRawData()['gdx_analytics_app_id'];
   $snowplow_version = $config->getRawData()['gdx_analytics_snowplow_version'];
 
+  // The #attached key is used to attach JavaScript assets set earlier. This setting will be available to JavaScript running on the client side,
   $page['#attached']['drupalSettings']['gdx_collector'] = $collector;
   $page['#attached']['drupalSettings']['app_id'] = $app_id;
   $page['#attached']['drupalSettings']['snowplow_version'] = $snowplow_version;
+  
+  // Will use to check if the current route is an administrative route.
   $admin_context = \Drupal::service('router.admin_context');
 
-  // Get route info and set up link to settings form.
-  // This warning shows after module has been installed but no configurations are set
+  // Get route info and set up link to settings form. This warning shows after module has been installed but no configurations are set.
   $curr_route_name = \Drupal::routeMatch()->getRouteName();
   $form_route = Url::fromRoute('gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form');
   $link = Link::fromTextAndUrl('Please configure your GDX Analytics Drupal Snowplow module', $form_route);
   
-  // Look for standard search default route and enable search event.
-  if($curr_route_name == 'search.view_node_search') {
-    $page['#attached']['drupalSettings']['search'] = true;
-  }
-
-  $messenger = \Drupal::messenger();
-
-  // Set admin message if settings form not complete.
+  // Retrieves the messenger service instance and set admin warning message if settings form is not complete
   if($admin_context->isAdminRoute()){
-    // Check that the Module has been configured; if there are fields missing, set a warning.
+
+    $messenger = \Drupal::messenger();
+
     if(empty($collector) || empty($script_uri) || empty($app_id)){
       if($curr_route_name == 'gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form') {
         $messenger->addWarning(t('Please Configure Your GDX Analytics Drupal Snowplow Module.<br>'
@@ -72,8 +77,30 @@ function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
   if(!$admin_context->isAdminRoute()){
     $page['#attached']['drupalSettings']['script_uri'] = $script_uri;
     if($snowplow_version == 1) {
-      $std_key = Drupal::request()->query->get('keys');
+
+      $curr_uri = \Drupal::request()->getRequestUri();
+      //echo "<script>console.log('$curr_uri');</script>";
+      
+      // Check if the URI contains "/search"
+      if (strpos($curr_uri, '/search') !== false) {
+
+        // Parse the URI to get the query parameters
+        $queryString = parse_url($curr_uri, PHP_URL_QUERY);
+        parse_str($queryString, $queryParameters);
+
+        // Initialize an empty array and store search parameter values
+        $searchTerms = [];
+
+        foreach ($queryParameters as $value) {
+            $searchTerms[] = $value;
+        }
+
+        $std_key = reset($searchTerms);
+
+      }
+
       if(!empty($std_key)) {
+        $page['#attached']['drupalSettings']['search'] = true;
         $page['#attached']['drupalSettings']['search_terms'] = explode(' ', $std_key);
       }
       $page['#attached']['library'][] = 'gdx_analytics_drupal_snowplow/gdx_analytics_drupal_snowplow.webtracker_search';
