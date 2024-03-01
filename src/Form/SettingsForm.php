@@ -70,7 +70,7 @@ class SettingsForm extends ConfigFormBase {
     ];
     $form['gdx_analytics_snowplow_version'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Snowplow Search on/off'),
+      '#title' => $this->t('Enable Snowplow Search Event'),
       '#default_value' => $config->get('gdx_analytics_snowplow_version'),
       '#description' => $this->t('If checked, Snowplow will track searches made using the Drupal search module.'),
       '#size' => 60,

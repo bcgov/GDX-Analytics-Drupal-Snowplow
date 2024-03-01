@@ -23,7 +23,7 @@ define('GDX_ANALYTICS_CONFIG_NAME', 'gdx_analytics_drupal_snowplow.settings');
 define('GDX_ANALYTICS_WARNING_CONFIG', t('Please Configure Your GDX Analytics Drupal Snowplow Module.<br>For assistance with filling out this form, contact the GDX Analytics Team.'));
 
 // Define constant for warning message about configuring the module.
-define('GDX_ANALYTICS_WARNING_CONFIG_LINK', 'Please configure your GDX Analytics Drupal Snowplow module');
+define('GDX_ANALYTICS_WARNING_CONFIG_LINK', 'Please click here to configure your GDX Analytics Drupal Snowplow module.');
 
 // Define constant for the module description.
 define('GDX_ANALYTICS_MODULE_DESCRIPTION', t('This is the GDX Analytics Drupal Snowplow module.'));
@@ -54,7 +54,7 @@ function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
     handleAdminRoutes($logger, $messenger);
   } else {
     // Handle non-administrative routes.
-    handleNonAdminRoutes($page, $logger, $messenger);
+    handleNonAdminRoutes($page, $logger);
   }
 }
 
@@ -78,7 +78,7 @@ function handleAdminRoutes($logger, $messenger) {
 /**
  * Handle logic for non-administrative routes.
  */
-function handleNonAdminRoutes(&$page, $logger, $messenger) {
+function handleNonAdminRoutes(&$page, $logger) {
   try {
 
     // Get configuration settings.
@@ -107,7 +107,6 @@ function handleNonAdminRoutes(&$page, $logger, $messenger) {
   } catch (\Exception $e) {
     // Log the exception and display a message
     $logger->error('Error processing non-admin routes: @message', ['@message' => $e->getMessage()]);
-    $messenger->addError(t('An error occurred while processing the non-administrative routes.'));
   }
 }
 
