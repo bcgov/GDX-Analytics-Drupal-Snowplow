@@ -61,7 +61,7 @@ class SettingsForm extends ConfigFormBase {
     ];
     $form['gdx_analytics_search_path'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Enter Searh Route'),
+      '#title' => $this->t('Enter Search Path'),
       '#default_value' => $config->get('gdx_analytics_search_path'),
       '#description' => $this->t('If you are using a search module other than Standard Search, change this search path to the path you require.'),
       '#maxlength' => 256,
