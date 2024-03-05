@@ -34,7 +34,7 @@ class SettingsForm extends ConfigFormBase {
     
     $form['gdx_collector_mode'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Enter Collector Environment'),
+      '#title' => $this->t('Collector Environment'),
       '#default_value' => $config->get('gdx_collector_mode'),
       '#description' => $this->t('Enter the value for the Snowplow endpoint as provided to you. Do not include "https://" or "http://"'),
       '#maxlength' => 128,
@@ -43,7 +43,7 @@ class SettingsForm extends ConfigFormBase {
     ]; 
     $form['gdx_analytics_snowplow_script_uri'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Enter Snowplow tracking script URI'),
+      '#title' => $this->t('Snowplow tracking script URI'),
       '#default_value' => $config->get('gdx_analytics_snowplow_script_uri'),
       '#description' => $this->t('Enter the URL of the Snowplow Library as provided to you. This should be a full URL including "https://" or "http://"'),
       '#maxlength' => 256,
@@ -52,7 +52,7 @@ class SettingsForm extends ConfigFormBase {
     ];
     $form['gdx_analytics_app_id'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Enter App ID'),
+      '#title' => $this->t('App ID'),
       '#default_value' => $config->get('gdx_analytics_app_id'),
       '#description' => $this->t('Enter the value of the App ID for your site as provided to you.'),
       '#maxlength' => 256,
@@ -61,7 +61,7 @@ class SettingsForm extends ConfigFormBase {
     ];
     $form['gdx_analytics_search_path'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Enter Search Path'),
+      '#title' => $this->t('Search Path'),
       '#default_value' => $config->get('gdx_analytics_search_path'),
       '#description' => $this->t('If you are using a search module other than Standard Search, change this search path to the path you require.'),
       '#maxlength' => 256,
@@ -70,9 +70,9 @@ class SettingsForm extends ConfigFormBase {
     ];
     $form['gdx_analytics_snowplow_version'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Enable Snowplow Search Event'),
+      '#title' => $this->t('Snowplow Search Event'),
       '#default_value' => $config->get('gdx_analytics_snowplow_version'),
-      '#description' => $this->t('If checked, Snowplow will track searches made using the Drupal search module.'),
+      '#description' => $this->t('If checked, Snowplow will track the searches performed on the website.'),
       '#size' => 60,
     ];
     return parent::buildForm($form, $form_state);
