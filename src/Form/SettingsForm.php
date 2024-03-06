@@ -120,8 +120,8 @@ class SettingsForm extends ConfigFormBase {
         ->set('gdx_analytics_search_path', $form_state->getValue('gdx_analytics_search_path'))
         ->save();
       
-      // Provide a success message upon successful configuration save.
-      $this->messenger()->addMessage($this->t('Settings have been saved.'));
+      // Drupal will provide "The configuration options have been saved." message
+
     } catch (\Exception $e) {
       // Log the exception and display a message
       \Drupal::logger('gdx_analytics_drupal_snowplow')->error('An error occurred while saving settings: @message', ['@message' => $e->getMessage()]);
