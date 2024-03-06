@@ -1,10 +1,10 @@
 [![img](https://img.shields.io/badge/Lifecycle-Experimental-339999)]
 ## GDX-Analytics-Drupal-Snowplow
 
-  The GDX Analytics Drupal Snowplow module installs and runs Snowplow 
+  The GDX Analytics Drupal Snowplow module installs and runs Snowplow
   Javascript web trackers, and provides an interface to configure them.
-  
-## Requirements  
+
+## Requirements
 
   This module requires Drupal 10. Backwards compatibilty tests are also conducted for Drupal 9 & 8.
 
@@ -13,32 +13,63 @@
 This project is currently under development and actively supported by the GDX Analytics Team.
 
 This 3.0 version reverts to using Drupal standard search. If you are currently using the 2.0 version with Search API, do not upgrade to 3.0. A future version of the 3.x will resolve this issue.
-  
+
 ## Relevant Repositories
 [GDX-Analytics/](https://github.com/bcgov/GDX-Analytics/)
 
 This is the central repository for work by the GDX Analytics Team.
 
 ## Installation
- 
+
   Install as you would normally install a contributed Drupal module. Visit:
   https://www.drupal.org/docs/extending-drupal/installing-modules
   for further information.
 
+### Install the module manually
+
   In your drupal installation, change directories to your sites/modules/custom folder.
-  
+
   Clone the project from github: https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow.
-  
+
   Install the module in Administration » Extend. Select the module; then scroll down and click Install.
+
+### Install the module via composer
+
+  Add the GDX Analytics Drupal Snowplow GitHub repository to your composer.json file:
+
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow"
+        }
+    ],
+
+  Add the custom module installer path `"web/modules/custom/{$name}": ["type:drupal-module-custom"]` to the "installer-paths" section in your composer.json file:
+
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/modules/custom/{$name}": ["type:drupal-module-custom"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"]
+        },
+
+Run the composer require command to add the module via composer:
+
+`composer require bcgov/gdx_analytics_drupal_snowplow`
+
+Install the module in Administration » Extend. Select the module; then scroll down and click Install.
 
 ## Configuration
 
   Configure settings in Administration » Configuration » GDX Analytics Drupal Snowplow settings.
-    
+
   Use this Configuration page to set the collector environment, tracking script URI, and app ID.
 
 ## Getting Help or Reporting an Issue
- 
+
 For any questions regarding this project, or for inquiries about starting a new analytics account, please contact the GDX Analytics Team.
 
 ## Contributors
