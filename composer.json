@@ -1,0 +1,12 @@
+{
+  "name": "bcgov/gdx_analytics_drupal_snowplow",
+  "description": "The GDX Analytics Drupal Snowplow module.",
+  "type": "drupal-module-custom",
+  "keywords": [
+    "Drupal",
+    "analytics"
+  ],
+  "homepage": "https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow",
+  "license": "Apache-2.0",
+  "require": {}
+}
