@@ -28,12 +28,11 @@ define('GDX_ANALYTICS_WARNING_CONFIG_LINK', 'Please click here to configure your
 // Define constant for the module description.
 define('GDX_ANALYTICS_MODULE_DESCRIPTION', t('This is the GDX Analytics Drupal Snowplow module.'));
 
-
 /**
  * Implements hook_help().
  */
 function gdx_analytics_drupal_snowplow_help($route_name) {
-  // Help text for the module. $route_name is as part of Drupal routing system
+  // Help text for the module. $route_name is as part of Drupal routing system.
   if ($route_name === GDX_ANALYTICS_HELP_PAGE_ROUTE) {
     return '<h3>' . t('About') . '</h3><p>' . GDX_ANALYTICS_MODULE_DESCRIPTION . '</p>';
   }
@@ -51,25 +50,27 @@ function gdx_analytics_drupal_snowplow_page_attachments(array &$page) {
   // Check if the current route is an administrative route.
   if ($admin_context->isAdminRoute()) {
     // Handle administrative routes.
-    handleAdminRoutes($logger, $messenger);
-  } else {
+    gdx_analytics_drupal_snowplow_handle_admin_routes($logger, $messenger);
+  }
+  else {
     // Handle non-administrative routes.
-    handleNonAdminRoutes($page, $logger);
+    gdx_analytics_drupal_snowplow_handle_non_admin_routes($page, $logger);
   }
 }
 
 /**
  * Handle logic for administrative routes.
  */
-function handleAdminRoutes($logger, $messenger) {
+function gdx_analytics_drupal_snowplow_handle_admin_routes($logger, $messenger) {
   // Create link for configuration.
   $link = Link::fromTextAndUrl(GDX_ANALYTICS_WARNING_CONFIG_LINK, Url::fromRoute(GDX_ANALYTICS_SETTINGS_FORM_ROUTE));
-  
+
   // Check if configuration is incomplete and display appropriate message.
-  if (isConfigurationIncomplete($logger, $messenger)) {
+  if (gdx_analytics_drupal_snowplow_is_configuration_incomplete($logger, $messenger)) {
     if ($route_name === GDX_ANALYTICS_SETTINGS_FORM_ROUTE) {
       $messenger->addWarning(GDX_ANALYTICS_WARNING_CONFIG);
-    } else {
+    }
+    else {
       $messenger->addWarning($link);
     }
   }
@@ -78,7 +79,7 @@ function handleAdminRoutes($logger, $messenger) {
 /**
  * Handle logic for non-administrative routes.
  */
-function handleNonAdminRoutes(&$page, $logger) {
+function gdx_analytics_drupal_snowplow_handle_non_admin_routes(&$page, $logger) {
   try {
 
     // Get configuration settings.
@@ -97,31 +98,34 @@ function handleNonAdminRoutes(&$page, $logger) {
 
     // Handle version-specific logic.
     if ($settings['gdx_analytics_snowplow_version'] == 1) {
-      // Handle Web tracker WITH search function
-      handleTrackerWithSearch($page, $settings);
-    } elseif ($settings['gdx_analytics_snowplow_version'] == 0) {
-      // Handle Web tracker WITHOUT search function
+      // Handle Web tracker WITH search function.
+      gdx_analytics_drupal_snowplow_handle_tracker_with_search($page, $settings);
+    }
+    elseif ($settings['gdx_analytics_snowplow_version'] == 0) {
+      // Handle Web tracker WITHOUT search function.
       $page['#attached']['library'][] = GDX_ANALYTICS_WEBTRACKER;
     }
-    
-  } catch (\Exception $e) {
-    // Log the exception and display a message
+
+  }
+  catch (\Exception $e) {
+    // Log the exception and display a message.
     $logger->error('Error processing non-admin routes: @message', ['@message' => $e->getMessage()]);
   }
 }
 
 /**
- * Handle Web tracker WITH search function
+ * Handle Web tracker WITH search function.
  */
-function handleTrackerWithSearch(&$page, $settings) {
+function gdx_analytics_drupal_snowplow_handle_tracker_with_search(&$page, $settings) {
   // Check if the URI contains the search path (default path is '/search' for Drupal Standard Search).
   $curr_uri = \Drupal::request()->getRequestUri();
-  
-  if (strpos($curr_uri, $settings['gdx_analytics_search_path']) !== false) {
+
+  if (strpos($curr_uri, $settings['gdx_analytics_search_path']) !== FALSE) {
     // Retrieve the search query parameters (first value of an array) key value pairs passed to the current script via the URL parameters.
-    $search_terms = reset($_GET);
+    $query = \Drupal::request()->query->all();
+    $search_terms = reset($query);
     if (!empty($search_terms)) {
-      $page['#attached']['drupalSettings']['search'] = true;
+      $page['#attached']['drupalSettings']['search'] = TRUE;
       // Assign the array of individual search terms (spaces as delimiters).
       $page['#attached']['drupalSettings']['search_terms'] = explode(' ', $search_terms);
     }
@@ -133,7 +137,7 @@ function handleTrackerWithSearch(&$page, $settings) {
 /**
  * Check if configuration settings are incomplete.
  */
-function isConfigurationIncomplete($logger, $messenger) {
+function gdx_analytics_drupal_snowplow_is_configuration_incomplete($logger, $messenger) {
   try {
 
     // Get configuration settings.
@@ -143,10 +147,11 @@ function isConfigurationIncomplete($logger, $messenger) {
 
     // Check if any setting is empty.
     return in_array('', $settings);
-  } catch (\Exception $e) {
-    // Log the exception and display a message
+  }
+  catch (\Exception $e) {
+    // Log the exception and display a message.
     $logger->error('Error retrieving configuration: @message', ['@message' => $e->getMessage()]);
     $messenger->addError(t('An error occurred while processing the configuration.'));
-    return false;
+    return FALSE;
   }
 }

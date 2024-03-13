@@ -31,7 +31,7 @@ class SettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('gdx_analytics_drupal_snowplow.settings');
-    
+
     $form['gdx_collector_mode'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Collector Environment'),
@@ -39,8 +39,8 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Enter the value for the Snowplow endpoint as provided to you. Do not include "https://" or "http://"'),
       '#maxlength' => 128,
       '#size' => 60,
-      '#required' => true,
-    ]; 
+      '#required' => TRUE,
+    ];
     $form['gdx_analytics_snowplow_script_uri'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Snowplow tracking script URI'),
@@ -48,7 +48,7 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Enter the URL of the Snowplow Library as provided to you. This should be a full URL including "https://" or "http://"'),
       '#maxlength' => 256,
       '#size' => 60,
-      '#required' => true,
+      '#required' => TRUE,
     ];
     $form['gdx_analytics_app_id'] = [
       '#type' => 'textfield',
@@ -57,7 +57,7 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Enter the value of the App ID for your site as provided to you.'),
       '#maxlength' => 256,
       '#size' => 60,
-      '#required' => true,
+      '#required' => TRUE,
     ];
     $form['gdx_analytics_search_path'] = [
       '#type' => 'textfield',
@@ -66,7 +66,7 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('If you are using a search module other than Standard Search, change this search path to the path you require.'),
       '#maxlength' => 256,
       '#size' => 60,
-      '#required' => true,
+      '#required' => TRUE,
     ];
     $form['gdx_analytics_snowplow_version'] = [
       '#type' => 'checkbox',
@@ -119,13 +119,14 @@ class SettingsForm extends ConfigFormBase {
         ->set('gdx_analytics_app_id', $form_state->getValue('gdx_analytics_app_id'))
         ->set('gdx_analytics_search_path', $form_state->getValue('gdx_analytics_search_path'))
         ->save();
-      
-      // Drupal will provide "The configuration options have been saved." message
 
-    } catch (\Exception $e) {
-      // Log the exception and display a message
+      // Drupal will provide "The configuration options have been saved." message.
+    }
+    catch (\Exception $e) {
+      // Log the exception and display a message.
       \Drupal::logger('gdx_analytics_drupal_snowplow')->error('An error occurred while saving settings: @message', ['@message' => $e->getMessage()]);
       $this->messenger()->addError($this->t('An error occurred while saving settings.'));
     }
   }
+
 }
