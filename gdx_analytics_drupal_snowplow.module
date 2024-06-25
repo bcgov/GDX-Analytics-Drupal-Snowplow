@@ -124,7 +124,7 @@ function gdx_analytics_drupal_snowplow_handle_tracker_with_search(&$page, $setti
     // Retrieve the search query parameters (first value of an array) key value pairs passed to the current script via the URL parameters.
     $query = \Drupal::request()->query->all();
     $search_terms = reset($query);
-    if (!empty($search_terms)) {
+    if (!empty($search_terms) && is_string($search_terms)) {
       $page['#attached']['drupalSettings']['search'] = TRUE;
       // Assign the array of individual search terms (spaces as delimiters).
       $page['#attached']['drupalSettings']['search_terms'] = explode(' ', $search_terms);
