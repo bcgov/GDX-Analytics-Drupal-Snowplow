@@ -96,10 +96,10 @@ class SettingsForm extends ConfigFormBase {
       $form_state->setErrorByName('gdx_analytics_snowplow_script_uri', $this->t('The Snowplow tracking script URI must be a complete URL starting with "http://" or "https://".'));
     }
 
-    // Validate the collector mode to ensure it doesn't start with 'http://' or 'https://'.
+    // Validate the collector environment to ensure it is a valid domain without 'http://' or 'https://'.
     $collector_mode = $form_state->getValue('gdx_collector_mode');
-    if (!empty($collector_mode) && (strpos($collector_mode, 'http://') === 0 || strpos($collector_mode, 'https://') === 0)) {
-      $form_state->setErrorByName('gdx_collector_mode', $this->t('The Collector Environment should not include "http://" or "https://".'));
+    if (!empty($collector_mode) && !filter_var($collector_mode, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME)) {
+      $form_state->setErrorByName('gdx_collector_mode', $this->t('The Collector Environment should be a valid domain (must start with an alphanumeric character and contain only alphanumerics or hyphens) without "http://" or "https://".'));
     }
 
   }
