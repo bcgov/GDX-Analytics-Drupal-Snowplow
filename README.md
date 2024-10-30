@@ -12,7 +12,7 @@
 
 This project is currently under development and actively supported by the GDX Analytics Team.
 
-This version (3.1.0) now allows the use of GDX Analytics Drupal Snowplow module with other search modules, including Drupal Search API.
+Version 3.1.0 and later versions allow the use of GDX Analytics Drupal Snowplow module with other search modules, including Drupal Search API.
   
 ## Relevant Repositories
 [GDX-Analytics/](https://github.com/bcgov/GDX-Analytics/)
