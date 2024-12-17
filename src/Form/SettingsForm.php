@@ -63,7 +63,7 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Search Path'),
       '#default_value' => $config->get('gdx_analytics_search_path'),
-      '#description' => $this->t('If you are using a search module other than Standard Search, change this search path to the path you require.'),
+      '#description' => $this->t('Enter the search path(s) required for your search module. Multiple paths can be separated by commas.'),
       '#maxlength' => 256,
       '#size' => 60,
       '#required' => true,
@@ -84,10 +84,22 @@ class SettingsForm extends ConfigFormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
 
-    // Validate the search path to ensure it starts with '/'.
-    $search_path = $form_state->getValue('gdx_analytics_search_path');
-    if (!empty($search_path) && substr($search_path, 0, 1) !== '/') {
-      $form_state->setErrorByName('gdx_analytics_search_path', $this->t('The Search Route must start with "/".'));
+    // Validate the search path to ensure each path starts with '/' and contains valid characters.
+    $search_path = trim($form_state->getValue('gdx_analytics_search_path'));
+    if (!empty($search_path)) {
+      // Split search paths, remove whitespace and delete empty paths
+      $paths = array_filter(array_map('trim', explode(',', $search_path)));
+      // Define regex pattern for valid URL paths.
+      $valid_url_path_regex = '/^\/[a-zA-Z0-9\-\._~\/]*$/';
+      // Check each path for validity.
+      foreach ($paths as $path) {
+        // Check for invalid paths and set error message.
+        if (!preg_match($valid_url_path_regex, $path)) {
+          $error_message = $this->t('Each search route must start with "/" and contain only valid URL characters. Invalid path: %path', ['%path' => $path]);
+          $form_state->setErrorByName('gdx_analytics_search_path', $error_message);
+          break;
+        }
+      }
     }
 
     // Validate the Snowplow tracking script URI to ensure it's a complete URL with 'http://' or 'https://'.
