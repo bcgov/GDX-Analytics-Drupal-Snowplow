@@ -114,19 +114,28 @@ function handleNonAdminRoutes(&$page, $logger) {
  * Handle Web tracker WITH search function
  */
 function handleTrackerWithSearch(&$page, $settings) {
-  // Check if the URI contains the search path (default path is '/search' for Drupal Standard Search).
+  // Get the current requested URI
   $curr_uri = \Drupal::request()->getRequestUri();
+
+  // Retreive the comma separated search path(s) from the settings
+  $allowed_paths = explode(',', $settings['gdx_analytics_search_path']);
   
-  if (strpos($curr_uri, $settings['gdx_analytics_search_path']) !== false) {
-    // Retrieve the search query parameters (first value of an array) key value pairs passed to the current script via the URL parameters.
+  // Check if any of the allowed search paths are a substring of the current URI.
+  $is_search_page = !empty(array_filter($allowed_paths, function ($allowed_path) use ($curr_uri) {
+    return strpos($curr_uri, trim($allowed_path)) !== false;
+  }));
+
+  // Check if any of the search paths are in the URL
+  if ($is_search_page) {
+    // Extract the search query parameters from the URI (value of the first key)
     $search_terms = reset($_GET);
     if (!empty($search_terms)) {
       $page['#attached']['drupalSettings']['search'] = true;
-      // Assign the array of individual search terms (spaces as delimiters).
+      // Assign the array of individual search terms (use space as delimiter)
       $page['#attached']['drupalSettings']['search_terms'] = explode(' ', $search_terms);
     }
   }
-  // Attach the tracking code to front-end pages if search toggle is enabled.
+  // Attach the tracking code to front-end pages if the search toggle is enabled
   $page['#attached']['library'][] = GDX_ANALYTICS_WEBTRACKER_WITH_SEARCH;
 }
 
