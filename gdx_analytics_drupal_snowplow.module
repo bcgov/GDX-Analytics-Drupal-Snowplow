@@ -102,6 +102,8 @@ function handleNonAdminRoutes(&$page, $logger) {
     } elseif ($settings['gdx_analytics_snowplow_version'] == 0) {
       // Handle Web tracker WITHOUT search function
       $page['#attached']['library'][] = GDX_ANALYTICS_WEBTRACKER;
+    } elseif ($settings['gdx_analytics_snowplow_version'] === 'Healthlink Inline Search vC.2.14.0') {
+      handleTrackerWithSearch($page, $settings);
     }
 
   } catch (\Exception $e) {
