@@ -90,6 +90,7 @@ function handleNonAdminRoutes(&$page, $logger) {
       'app_id' => $settings['gdx_analytics_app_id'],
       'snowplow_version' => $settings['gdx_analytics_snowplow_version'],
       'search_path' => $settings['gdx_analytics_search_path'],
+      'search_key' => $settings['gdx_analytics_search_key']
     ];
 
     // Attach the main tracking code url.
@@ -127,12 +128,17 @@ function handleTrackerWithSearch(&$page, $settings) {
 
   // Check if any of the search paths are in the URL
   if ($is_search_page) {
-    // Extract the search query parameters from the URI (value of the first key)
-    $search_terms = reset($_GET);
-    if (!empty($search_terms)) {
-      $page['#attached']['drupalSettings']['search'] = true;
-      // Assign the array of individual search terms (use space as delimiter)
-      $page['#attached']['drupalSettings']['search_terms'] = explode(' ', $search_terms);
+
+    $search_key = $settings['gdx_analytics_search_key'];
+
+    // Extract the search query parameters from the URI (using the specified search key)
+    if (!empty($_GET[$search_key])) {
+      $search_terms = $_GET[$search_key];
+      if (!empty($search_terms)) {
+        $page['#attached']['drupalSettings']['search'] = true;
+        // Assign the array of individual search terms (use space as delimiter)
+        $page['#attached']['drupalSettings']['search_terms'] = explode(' ', $search_terms);
+      }
     }
   }
   // Attach the tracking code to front-end pages if the search toggle is enabled
