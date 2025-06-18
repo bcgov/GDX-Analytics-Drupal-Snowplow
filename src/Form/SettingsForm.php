@@ -111,6 +111,16 @@ class SettingsForm extends ConfigFormBase {
       }
     }
 
+    // Validate search key to ensure it is not empty and contain valid characters
+    $search_key = trim($form_state->getValue('gdx_analytics_search_key'));
+    $valid_key_regex = '/^[a-zA-Z0-9_-]+$/';
+    if (empty($search_key) || !preg_match($valid_key_regex, $search_key)) {
+      $form_state->setErrorByName(
+        'gdx_analytics_search_key',
+        $this->t('Search key cannot be empty and must contain valid characters.')
+      );
+    }
+
     // Validate the Snowplow tracking script URI to ensure it's a complete URL with 'http://' or 'https://'.
     $script_uri = $form_state->getValue('gdx_analytics_snowplow_script_uri');
     if (!empty($script_uri) && !filter_var($script_uri, FILTER_VALIDATE_URL) && substr($script_uri, 0, 1) !== 'http') {
@@ -139,6 +149,7 @@ class SettingsForm extends ConfigFormBase {
         ->set('gdx_analytics_snowplow_script_uri', $form_state->getValue('gdx_analytics_snowplow_script_uri'))
         ->set('gdx_analytics_app_id', $form_state->getValue('gdx_analytics_app_id'))
         ->set('gdx_analytics_search_path', $form_state->getValue('gdx_analytics_search_path'))
+        ->set('gdx_analytics_search_key', $form_state->getValue('gdx_analytics_search_key'))
         ->save();
       
       // Drupal will provide "The configuration options have been saved." message
