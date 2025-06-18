@@ -68,6 +68,15 @@ class SettingsForm extends ConfigFormBase {
       '#size' => 60,
       '#required' => true,
     ];
+    $form['gdx_analytics_search_key'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Search Key'),
+      '#default_value' => $config->get('gdx_analytics_search_key'),
+      '#description' => $this->t('Enter the search key required for your search module.'),
+      '#maxlength' => 256,
+      '#size' => 60,
+      '#required' => true,
+    ];
     $form['gdx_analytics_snowplow_version'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Snowplow Search Event'),
