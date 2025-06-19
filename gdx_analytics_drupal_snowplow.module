@@ -140,7 +140,7 @@ function handleTrackerWithSearch(&$page, $settings) {
     // Use below to print to browser console
     // echo '<script>console.log("All keys:", ' . json_encode($all_keys) . ');</script>';
 
-    // Extract the search query parameters from the URI (using the specified search key)
+    // Extract the search terms from the keys array
     if (!empty($all_keys)) {
       //Join the elements into a single string, then split back using space as delimiter
         $search_terms = implode(' ', $all_keys);
