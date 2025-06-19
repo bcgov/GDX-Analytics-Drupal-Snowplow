@@ -112,13 +112,21 @@ class SettingsForm extends ConfigFormBase {
     }
 
     // Validate search key to ensure it is not empty and contain valid characters
-    $search_key = trim($form_state->getValue('gdx_analytics_search_key'));
+    $original_value = $form_state->getValue('gdx_analytics_search_key');
+    $search_key = trim($original_value);
     $valid_key_regex = '/^[a-zA-Z0-9_-]+$/';
-    if (empty($search_key) || !preg_match($valid_key_regex, $search_key)) {
-      $form_state->setErrorByName(
-        'gdx_analytics_search_key',
-        $this->t('Search key cannot be empty and must contain valid characters.')
-      );
+
+    if ($original_value !== $search_key || empty($search_key) || !preg_match($valid_key_regex, $search_key)) {
+      $form_state->setErrorByName('gdx_analytics_search_key', $this->t('Search key cannot be empty, have leading/trailing spaces, or contain invalid characters.'));
+    }
+
+    // Validate App ID to ensure it is not empty and contain valid characters
+    $original_value = $form_state->getValue('gdx_analytics_app_id');
+    $app_id= trim($original_value);
+    $valid_key_regex = '/^[a-zA-Z0-9_-]+$/';
+
+    if ($original_value !== $app_id || empty($app_id) || !preg_match($valid_key_regex, $app_id)) {
+      $form_state->setErrorByName('gdx_analytics_app_id', $this->t('App ID cannot be empty, have leading/trailing spaces, or contain invalid characters.'));
     }
 
     // Validate the Snowplow tracking script URI to ensure it's a complete URL with 'http://' or 'https://'.
