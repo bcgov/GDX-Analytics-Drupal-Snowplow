@@ -128,6 +128,7 @@ function handleTrackerWithSearch(&$page, $settings) {
     $params = explode('&', $query_string);
 
     // Extract all values for the given key
+    // This also checks for multiple key usage (such as /search/node?keys=test1+test2&keys=test3)
     $all_keys = [];
     foreach ($params as $param) {
         list($key, $value) = explode('=', $param);
@@ -135,6 +136,9 @@ function handleTrackerWithSearch(&$page, $settings) {
             $all_keys[] = urldecode($value);
         }
     }
+
+    // Use below to print to browser console
+    // echo '<script>console.log("All keys:", ' . json_encode($all_keys) . ');</script>';
 
     // Extract the search query parameters from the URI (using the specified search key)
     if (!empty($all_keys)) {
