@@ -12,9 +12,9 @@ This module requires Drupal 10. Backwards compatibility tests are also conducted
 
 This project is currently under development and actively supported by the GDX Analytics Team.
 
-The current version released is 3.3.0. 
+The current version released is 3.4.0. 
 
-Versions 3.1.0 and newer allow the GDX Analytics Drupal Snowplow module to be used alongside other search modules, such as Drupal Search API.
+Versions 3.1.0 and later allow the GDX Analytics Drupal Snowplow module to be used alongside other search modules, such as Drupal Search API.
   
 ## Relevant Repositories
 [GDX-Analytics/](https://github.com/bcgov/GDX-Analytics/)
@@ -23,19 +23,39 @@ This is the central repository for work by the GDX Analytics Team.
 
 ## Installation
  
-Install as you would normally install a contributed Drupal module. Visit: https://www.drupal.org/docs/extending-drupal/installing-modules for further information.
+Install as you would typically install a contributed Drupal module. Visit: https://www.drupal.org/docs/extending-drupal/installing-modules for further information.
 
 Change directories to your sites/modules/custom folder in your drupal installation.
   
-Clone the project from github: https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow.
+Clone the project from GitHub: https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow.
   
-Install the module in Administration » Extend. Select the modul, then scroll down and click Install.
+Install the module in Administration » Extend. Select the module, then scroll down and click Install.
 
 ## Configuration
 
 Configure settings in Administration » Configuration » GDX Analytics Drupal Snowplow settings.
     
-Use this Configuration page to set the collector environment, tracking script URI, app ID and search path.
+Use this configuration page to set the collector environment, tracking script URI, app ID, search path and search key.
+
+The default settings for GDX Analytics development data pipeline are:
+
+- Collector Environment = spm.apps.gov.bc.ca
+
+- Snowplow tracking script URI = https://www2.gov.bc.ca/StaticWebResources/static/sp/sp-2-14-0.js
+
+- App ID = Snowplow_standalone
+
+If the Snowplow Search Event is enabled, the module look for the Search Path to trigger a search event and extract the search terms from the URI using the defined Search Key:
+
+- Search Path = Enter the search path(s) required to trigger a search event. If you want to use multiple paths, use comma-separated values (Example: '/search1, /search2'). 
+
+- Search Key = Enter the search key required to extract search terms. If there are multiple copies of the same key in the URI (Example: .../search/node?keys=value1&keys=value2), the module will concatenate all key values to the list of search terms.
+
+In Drupal, the standard search URI has the following structure:
+
+```https://.../search/node?keys=value```
+
+The default path for the module is set to‘/search,’ and the default search key is set to ‘keys.’ 
 
 ## Getting Help or Reporting an Issue
  
@@ -43,13 +63,13 @@ For any questions regarding this project, or for inquiries about starting a new 
 
 ## Contributors
 
-The GDX Analytics Team are the main contributors to this project and maintain the code.
+The GDX Analytics Team is the main contributor to this project and maintains the code.
 
 ## How to Contribute
 
 If you would like to contribute, please see our [CONTRIBUTING](CONTRIBUTING.md) guidelines.
 
-Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project, you agree to abide by its terms.
 
 ## License
 
