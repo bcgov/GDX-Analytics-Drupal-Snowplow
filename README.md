@@ -45,7 +45,7 @@ The default settings for GDX Analytics development data pipeline are:
 
 - App ID = Snowplow_standalone
 
-If the Snowplow Search Event is enabled, the module look for the Search Path to trigger a search event and extract the search terms from the URI using the defined Search Key:
+If the Snowplow Search Event is enabled, the module looks for the Search Path to trigger a search event and extract the search terms from the URI using the defined Search Key:
 
 - Search Path = Enter the search path(s) required to trigger a search event. If you want to use multiple paths, use comma-separated values (Example: '/search1, /search2'). 
 
@@ -55,7 +55,7 @@ In Drupal, the standard search URI has the following structure:
 
 ```https://.../search/node?keys=value```
 
-The default path for the module is set to‘/search,’ and the default search key is set to ‘keys.’ 
+The default Search Path for the module is set to‘/search,’ and the default Search Key is set to ‘keys.’ 
 
 ## Getting Help or Reporting an Issue
  
