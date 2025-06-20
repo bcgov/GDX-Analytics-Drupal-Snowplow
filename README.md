@@ -12,10 +12,25 @@ This module requires Drupal 10. Backwards compatibility tests are also conducted
 
 This project is currently under development and actively supported by the GDX Analytics Team.
 
-The current version released is 3.4.0. 
+The latest version released is X.X.0.
 
-Versions 3.1.0 and later allow the GDX Analytics Drupal Snowplow module to be used alongside other search modules, such as Drupal Search API.
+This is a Drupal 10 version with the option to declare a specific Search Key. The module looks for the Search Path(s) to trigger a search event and extracts the search terms from the URI based on the defined Search Key.
+
+Older versions:
+
+3.3.0: Drupal 10 version with multiple (comma-separated) search paths available. It is possible to configure the module to trigger a search event coming from different search paths.
+
+3.2.0: Drupal 10 version with collector field validation updates.
+
+3.1.0: Drupal 10 version backward tested with Drupal 9. This version is compatible with Drupal search modules, including Search API. There are no hard-coded configurations anymore. The module looks for the Search Path to trigger a search event and extracts the search terms from the first key-value pair of the URI.
+
+3.0.0: Drupal 10 version compatible with Drupal 9 & 8. This version reverts to using Drupal standard search and is not compatible with Search API.
+
+2.0.0: Drupal 9 version with clean-up configuration page and a toggle for search/no-search. This version works with Drupal Search API but not the Standard Search.
+
+1.0.0: First working version. The Drupal 8 module has been revised to work with Drupal 9, utilizing hard-coded configuration.
   
+
 ## Relevant Repositories
 [GDX-Analytics/](https://github.com/bcgov/GDX-Analytics/)
 
