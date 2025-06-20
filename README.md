@@ -45,7 +45,7 @@ The default settings for GDX Analytics development data pipeline are:
 
 - App ID = Snowplow_standalone
 
-If the Snowplow Search Event is enabled, the module looks for the Search Path to trigger a search event and extract the search terms from the URI using the defined Search Key:
+If the Snowplow Search Event is enabled, the module looks for the Search Path to trigger a search event and extracts the search terms from the URI using the defined Search Key:
 
 - Search Path = Enter the search path(s) required to trigger a search event. If you want to use multiple paths, use comma-separated values (Example: '/search1, /search2'). 
 
