@@ -12,9 +12,9 @@ This module requires Drupal 10. Backwards compatibility tests are also conducted
 
 This project is currently under development and actively supported by the GDX Analytics Team.
 
-The latest version released is 4.0.0.
+This version: 4.0.0
 
-This is a Drupal 10 version with the option to declare a specific Search Key. The module looks for the Search Path(s) to trigger a search event and extracts the search terms from the URI based on the defined Search Key. It's important to note that this is a breaking feature, as previous version extracted search terms from the first key-value pair in the URI.
+This version, tested in Drupal 10, adds the option to declare a specific Search Key. The module looks for the Search Path(s) to trigger a search event and extracts the search terms from the URI based on the defined Search Key. It's important to note that this is a breaking feature, as previous version extracted search terms from the first key-value pair in the URI.
 
 Older versions:
 
@@ -52,13 +52,11 @@ Configure settings in Administration » Configuration » GDX Analytics Drupal Sn
     
 Use this configuration page to set the Collector Environment, Tracking Script URI, App ID, Search Path and Search Key.
 
-The default settings for GDX Analytics development data pipeline are:
+Use the values provided by The GDX Analytics Team for:
 
-- Collector Environment = spm.apps.gov.bc.ca
-
-- Snowplow tracking script URI = https://www2.gov.bc.ca/StaticWebResources/static/sp/sp-2-14-0.js
-
-- App ID = Snowplow_standalone
+- Collector Environment
+- Snowplow tracking script URI
+- App ID
 
 If the Snowplow Search Event is enabled, the module looks for the Search Path to trigger a search event and extracts the search terms from the URI using the defined Search Key:
 
