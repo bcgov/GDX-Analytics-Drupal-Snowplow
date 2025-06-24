@@ -12,9 +12,9 @@ This module requires Drupal 10. Backwards compatibility tests are also conducted
 
 This project is currently under development and actively supported by the GDX Analytics Team.
 
-The latest version released is X.X.0.
+The latest version released is 4.0.0.
 
-This is a Drupal 10 version with the option to declare a specific Search Key. The module looks for the Search Path(s) to trigger a search event and extracts the search terms from the URI based on the defined Search Key.
+This is a Drupal 10 version with the option to declare a specific Search Key. The module looks for the Search Path(s) to trigger a search event and extracts the search terms from the URI based on the defined Search Key. It's important to note that this is a breaking feature, as previous version extracted search terms from the first key-value pair in the URI.
 
 Older versions:
 
@@ -22,9 +22,9 @@ Older versions:
 
 3.2.0: Drupal 10 version with collector field validation updates.
 
-3.1.0: Drupal 10 version backward tested with Drupal 9. This version is compatible with Drupal search modules, including Search API. There are no hard-coded configurations anymore. The module looks for the Search Path to trigger a search event and extracts the search terms from the first key-value pair of the URI.
+3.1.0: Drupal 10 version compatible with Drupal search modules, including Search API. There are no hard-coded configurations anymore. The module looks for the Search Path to trigger a search event and extracts the search terms from the first key-value pair of the URI.
 
-3.0.0: Drupal 10 version compatible with Drupal 9 & 8. This version reverts to using Drupal standard search and is not compatible with Search API.
+3.0.0: Drupal 10 version, backward tested with Drupal 9 & 8. This version reverts to using Drupal standard search and is not compatible with Search API.
 
 2.0.0: Drupal 9 version with clean-up configuration page and a toggle for search/no-search. This version works with Drupal Search API but not the Standard Search.
 
@@ -50,7 +50,7 @@ Install the module in Administration » Extend. Select the module, then scroll d
 
 Configure settings in Administration » Configuration » GDX Analytics Drupal Snowplow settings.
     
-Use this configuration page to set the collector environment, tracking script URI, app ID, search path and search key.
+Use this configuration page to set the Collector Environment, Tracking Script URI, App ID, Search Path and Search Key.
 
 The default settings for GDX Analytics development data pipeline are:
 
@@ -62,9 +62,9 @@ The default settings for GDX Analytics development data pipeline are:
 
 If the Snowplow Search Event is enabled, the module looks for the Search Path to trigger a search event and extracts the search terms from the URI using the defined Search Key:
 
-- Search Path = Enter the search path(s) required to trigger a search event. If you want to use multiple paths, use comma-separated values (Example: '/search1, /search2'). 
+- Search Path = Enter the search path(s) required to trigger a search event. If you want to use multiple paths, use comma-separated values, e.g, "/search1, /search2".
 
-- Search Key = Enter the search key required to extract search terms. If there are multiple copies of the same key in the URI (Example: .../search/node?keys=value1&keys=value2), the module will concatenate all key values to the list of search terms.
+- Search Key = Enter the search key required to extract search terms. If there are multiple copies of the same key in the URI, the module will concatenate all key values to the list of search terms. For example, the search terms extracted from "/search/node?keys=value1&keys=value2" will be (value1, value2) when the Search Path is set to "/search" and the Search Key is set to "keys".
 
 In Drupal, the standard search URI has the following structure:
 
