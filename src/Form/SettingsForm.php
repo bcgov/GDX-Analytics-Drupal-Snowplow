@@ -68,6 +68,15 @@ class SettingsForm extends ConfigFormBase {
       '#size' => 60,
       '#required' => true,
     ];
+    $form['gdx_analytics_search_key'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Search Key'),
+      '#default_value' => $config->get('gdx_analytics_search_key'),
+      '#description' => $this->t('Enter the search key required for your search configuration.'),
+      '#maxlength' => 256,
+      '#size' => 60,
+      '#required' => true,
+    ];
     $form['gdx_analytics_snowplow_version'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Snowplow Search Event'),
@@ -102,6 +111,24 @@ class SettingsForm extends ConfigFormBase {
       }
     }
 
+    // Validate search key to ensure it is not empty and contain valid characters
+    $original_value = $form_state->getValue('gdx_analytics_search_key');
+    $search_key = trim($original_value);
+    $valid_key_regex = '/^[a-zA-Z0-9_-]+$/';
+
+    if ($original_value !== $search_key || empty($search_key) || !preg_match($valid_key_regex, $search_key)) {
+      $form_state->setErrorByName('gdx_analytics_search_key', $this->t('Search key cannot be empty, have leading/trailing spaces, or contain invalid characters.'));
+    }
+
+    // Validate App ID to ensure it is not empty and contain valid characters
+    $original_value = $form_state->getValue('gdx_analytics_app_id');
+    $app_id= trim($original_value);
+    $valid_key_regex = '/^[a-zA-Z0-9_-]+$/';
+
+    if ($original_value !== $app_id || empty($app_id) || !preg_match($valid_key_regex, $app_id)) {
+      $form_state->setErrorByName('gdx_analytics_app_id', $this->t('App ID cannot be empty, have leading/trailing spaces, or contain invalid characters.'));
+    }
+
     // Validate the Snowplow tracking script URI to ensure it's a complete URL with 'http://' or 'https://'.
     $script_uri = $form_state->getValue('gdx_analytics_snowplow_script_uri');
     if (!empty($script_uri) && !filter_var($script_uri, FILTER_VALIDATE_URL) && substr($script_uri, 0, 1) !== 'http') {
@@ -130,6 +157,7 @@ class SettingsForm extends ConfigFormBase {
         ->set('gdx_analytics_snowplow_script_uri', $form_state->getValue('gdx_analytics_snowplow_script_uri'))
         ->set('gdx_analytics_app_id', $form_state->getValue('gdx_analytics_app_id'))
         ->set('gdx_analytics_search_path', $form_state->getValue('gdx_analytics_search_path'))
+        ->set('gdx_analytics_search_key', $form_state->getValue('gdx_analytics_search_key'))
         ->save();
       
       // Drupal will provide "The configuration options have been saved." message

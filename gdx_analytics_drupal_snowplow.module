@@ -8,24 +8,14 @@
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 
-// Define constants for route names.
+// Constants
 define('GDX_ANALYTICS_SETTINGS_FORM_ROUTE', 'gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form');
 define('GDX_ANALYTICS_HELP_PAGE_ROUTE', 'help.page.gdx_analytics_drupal_snowplow');
-
-// Define constant for tracker versions.
 define('GDX_ANALYTICS_WEBTRACKER', 'gdx_analytics_drupal_snowplow/gdx_analytics_drupal_snowplow.webtracker');
 define('GDX_ANALYTICS_WEBTRACKER_WITH_SEARCH', 'gdx_analytics_drupal_snowplow/gdx_analytics_drupal_snowplow.webtracker_search');
-
-// Define constant for configuration name.
 define('GDX_ANALYTICS_CONFIG_NAME', 'gdx_analytics_drupal_snowplow.settings');
-
-// Define constant for warning message about incomplete configuration.
 define('GDX_ANALYTICS_WARNING_CONFIG', t('Please Configure Your GDX Analytics Drupal Snowplow Module.<br>For assistance with filling out this form, contact the GDX Analytics Team.'));
-
-// Define constant for warning message about configuring the module.
 define('GDX_ANALYTICS_WARNING_CONFIG_LINK', 'Please click here to configure your GDX Analytics Drupal Snowplow module.');
-
-// Define constant for the module description.
 define('GDX_ANALYTICS_MODULE_DESCRIPTION', t('This is the GDX Analytics Drupal Snowplow module.'));
 
 
@@ -90,6 +80,7 @@ function handleNonAdminRoutes(&$page, $logger) {
       'app_id' => $settings['gdx_analytics_app_id'],
       'snowplow_version' => $settings['gdx_analytics_snowplow_version'],
       'search_path' => $settings['gdx_analytics_search_path'],
+      'search_key' => $settings['gdx_analytics_search_key']
     ];
 
     // Attach the main tracking code url.
@@ -127,12 +118,35 @@ function handleTrackerWithSearch(&$page, $settings) {
 
   // Check if any of the search paths are in the URL
   if ($is_search_page) {
-    // Extract the search query parameters from the URI (value of the first key)
-    $search_terms = reset($_GET);
-    if (!empty($search_terms)) {
-      $page['#attached']['drupalSettings']['search'] = true;
-      // Assign the array of individual search terms (use space as delimiter)
-      $page['#attached']['drupalSettings']['search_terms'] = explode(' ', $search_terms);
+
+    $search_key = $settings['gdx_analytics_search_key'];
+
+    // Extract query string from the full URI
+    $query_string = parse_url($curr_uri, PHP_URL_QUERY);
+
+    // Split query string by '&' to get key-value pairs
+    $params = explode('&', $query_string);
+
+    // Extract all values for the given key
+    // This also checks for multiple use of the same key (Example: /search/node?keys=test1+test2&keys=test3)
+    $all_keys = [];
+    foreach ($params as $param) {
+        list($key, $value) = explode('=', $param);
+        if ($key == $search_key) {
+            $all_keys[] = urldecode($value);
+        }
+    }
+
+    // Extract the search terms from the keys array
+    if (!empty($all_keys)) {
+      //Join the elements into a single string, then split back using space as delimiter
+        $search_terms = implode(' ', $all_keys);
+        $search_terms = explode(' ', $search_terms);
+      if (!empty($search_terms)) {
+        // Assign the array of individual search terms
+        $page['#attached']['drupalSettings']['search'] = true;
+        $page['#attached']['drupalSettings']['search_terms'] = $search_terms;
+      }
     }
   }
   // Attach the tracking code to front-end pages if the search toggle is enabled
