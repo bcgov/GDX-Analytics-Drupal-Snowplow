@@ -48,6 +48,37 @@ Clone the project from GitHub: https://github.com/bcgov/GDX-Analytics-Drupal-Sno
   
 Install the module in Administration » Extend. Select the module, then scroll down and click Install.
 
+### Install with Composer
+
+You need to edit your Drupal site's root composer.json file to fetch the module directly from this repository.
+
+Add the GDX Analytics Drupal Snowplow GitHub repository:
+
+```
+"repositories": [
+   {
+      "type": "vcs",
+      "url": "https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow"
+   },
+   ...
+]
+```
+Make sure that the custom module installer path is defined:
+
+```
+"installer-paths": {
+   "web/modules/custom/{$name}": [
+         "type:drupal-custom-module"
+   ],
+   ...
+},
+```
+
+Run the following command to fetch the module from the main branch:
+```
+composer require bcgov/gdx_analytics_drupal_snowplow
+```
+
 ## Configuration
 
 Configure settings in Administration » Configuration » GDX Analytics Drupal Snowplow settings.
