@@ -6,19 +6,20 @@ Javascript web trackers and provides an interface to configure them.
   
 ## Requirements  
 
-This module requires Drupal 10. Backwards compatibility tests are also conducted for Drupal 9.
+This module requires Drupal 10. Backwards compatibility tests are also conducted for Drupal 9/8.
 
 ## Project Status
 
 This project is currently under development and actively supported by the GDX Analytics Team.
 
-This version: 4.0.0
+This version: 4.1.0
 
-This version, tested in Drupal 10/9/8, adds the option to declare a specific Search Key. The module looks for the Search Path(s) to trigger a search event and extracts the search terms from the URI based on the defined Search Key. If there are multiple copies of the same key in the URI, the module will concatenate all key values to the list of search terms.
+This version, tested in Drupal 10/9/8, adds the option to use [Composer](https://getcomposer.org/) to install the module.
 
-It's important to note that this is a breaking feature, as previous version extracted search terms from the first key-value pair in the URI.
 
 Older versions:
+
+4.0.0: Tested in Drupal 10/9/8, this version adds the option to declare a specific Search Key. The module looks for the Search Path(s) to trigger a search event and extracts the search terms from the URI based on the defined Search Key. If there are multiple copies of the same key in the URI, the module will concatenate all key values to the list of search terms. It's important to note that this is a breaking feature, as previous version extracted search terms from the first key-value pair in the URI.
 
 3.3.0: Tested in Drupal 10/9/8, this version adds the option of using multiple (comma-separated) search paths. It is possible to configure the module to trigger a search event coming from different search paths.
 
@@ -46,6 +47,38 @@ Change directories to your sites/modules/custom folder in your drupal installati
   
 Clone the project from GitHub: https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow.
   
+Install the module in Administration » Extend. Select the module, then scroll down and click Install.
+
+### Install with Composer
+
+You need to edit your Drupal site's root composer.json file to fetch the module directly from this repository.
+
+Add the GDX Analytics Drupal Snowplow GitHub repository:
+
+```
+"repositories": [
+   {
+      "type": "vcs",
+      "url": "https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow"
+   },
+   ...
+]
+```
+Make sure that the custom module installer path is defined:
+
+```
+"installer-paths": {
+   "web/modules/custom/{$name}": [
+         "type:drupal-custom-module"
+   ],
+   ...
+},
+```
+
+Run the following command to fetch the module from the main branch:
+```
+composer require bcgov/gdx_analytics_drupal_snowplow
+```
 Install the module in Administration » Extend. Select the module, then scroll down and click Install.
 
 ## Configuration
