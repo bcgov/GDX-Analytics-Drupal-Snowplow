@@ -79,6 +79,7 @@ Run the following command to fetch the module from the main branch:
 ```
 composer require bcgov/gdx_analytics_drupal_snowplow
 ```
+Install the module in Administration » Extend. Select the module, then scroll down and click Install.
 
 ## Configuration
 
