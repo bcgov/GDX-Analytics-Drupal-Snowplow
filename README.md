@@ -6,18 +6,20 @@ Javascript web trackers and provides an interface to configure them.
   
 ## Requirements  
 
-This module requires Drupal 10. Backwards compatibility tests are also conducted for Drupal 9/8.
+This module requires Drupal 11. Backwards compatibility tests are also conducted for Drupal 10/9/8.
 
 ## Project Status
 
 This project is currently under development and actively supported by the GDX Analytics Team.
 
-This version: 4.1.0
+This version: 4.2.0
 
-This version, tested in Drupal 10/9/8, adds the option to use [Composer](https://getcomposer.org/) to install the module.
+Tested in Drupal 11/10/9/8, adds compatibility with Drupal 11.
 
 
 Older versions:
+
+4.1.0: Tested in Drupal 10/9/8, adds the option to use [Composer](https://getcomposer.org/) to install the module.
 
 4.0.0: Tested in Drupal 10/9/8, this version adds the option to declare a specific Search Key. The module looks for the Search Path(s) to trigger a search event and extracts the search terms from the URI based on the defined Search Key. If there are multiple copies of the same key in the URI, the module will concatenate all key values to the list of search terms. It's important to note that this is a breaking feature, as previous version extracted search terms from the first key-value pair in the URI.
 
