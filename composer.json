@@ -5,6 +5,6 @@
   "homepage": "https://github.com/bcgov/GDX-Analytics-Drupal-Snowplow",
   "license": "Apache-2.0",
   "require": {
-    "drupal/core": "^8.8 || ^9 || ^10"
+    "drupal/core": "^8.8 || ^9 || ^10 || ^11"
   }
 }
