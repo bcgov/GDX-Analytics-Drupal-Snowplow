@@ -125,13 +125,14 @@ function handleTrackerWithSearch(&$page, $settings) {
     $query_string = parse_url($curr_uri, PHP_URL_QUERY) ?? '';
 
     // Split query string by '&' to get key-value pairs
-    $params = explode('&', $query_string);
+    $keyvalue_pairs = explode('&', $query_string);
 
     // Extract all values for the given key
     // This also checks for multiple use of the same key (Example: /search/node?keys=test1+test2&keys=test3)
     $all_keys = [];
-    foreach ($params as $param) {
-        list($key, $value) = array_pad(explode('=', $param), 2, ''); 
+    foreach ($keyvalue_pairs as $keyvalue_pair) {
+        // Examples of key-value pairs: "key1=xyz", "key2_with_no_value"
+        list($key, $value) = array_pad(explode('=', $keyvalue_pair), 2, ''); 
         if ($key == $search_key) {
             $all_keys[] = urldecode($value);
         }
