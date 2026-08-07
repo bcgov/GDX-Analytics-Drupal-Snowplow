@@ -131,7 +131,7 @@ function handleTrackerWithSearch(&$page, $settings) {
     // This also checks for multiple use of the same key (Example: /search/node?keys=test1+test2&keys=test3)
     $all_keys = [];
     foreach ($params as $param) {
-        list($key, $value) = explode('=', $param);
+        list($key, $value) = array_pad(explode('=', $param), 2, ''); 
         if ($key == $search_key) {
             $all_keys[] = urldecode($value);
         }
