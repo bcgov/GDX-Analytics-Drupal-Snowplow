@@ -122,26 +122,26 @@ function handleTrackerWithSearch(&$page, $settings) {
     $search_key = $settings['gdx_analytics_search_key'];
 
     // Extract query string from the full URI
-    $query_string = parse_url($curr_uri, PHP_URL_QUERY);
+    $query_string = parse_url($curr_uri, PHP_URL_QUERY) ?? '';
 
     // Split query string by '&' to get key-value pairs
-    $params = explode('&', $query_string);
+    $keyvalue_pairs = explode('&', $query_string);
 
     // Extract all values for the given key
     // This also checks for multiple use of the same key (Example: /search/node?keys=test1+test2&keys=test3)
-    $all_keys = [];
-    foreach ($params as $param) {
-        list($key, $value) = explode('=', $param);
+    $search_values = [];
+    foreach ($keyvalue_pairs as $keyvalue_pair) {
+        // Examples of key-value pairs: "key1=xyz", "key2_with_no_value"
+        list($key, $value) = array_pad(explode('=', $keyvalue_pair), 2, ''); 
         if ($key == $search_key) {
-            $all_keys[] = urldecode($value);
+            $search_values[] = urldecode($value);
         }
     }
 
-    // Extract the search terms from the keys array
-    if (!empty($all_keys)) {
+    // Extract the search terms
+    if (!empty($search_values)) {
       //Join the elements into a single string, then split back using space as delimiter
-        $search_terms = implode(' ', $all_keys);
-        $search_terms = explode(' ', $search_terms);
+      $search_terms = explode(' ',implode(' ', $search_values));
       if (!empty($search_terms)) {
         // Assign the array of individual search terms
         $page['#attached']['drupalSettings']['search'] = true;
