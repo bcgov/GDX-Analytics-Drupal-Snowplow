@@ -57,6 +57,7 @@ function handleAdminRoutes($logger, $messenger) {
   
   // Check if configuration is incomplete and display appropriate message.
   if (isConfigurationIncomplete($logger, $messenger)) {
+    $route_name = \Drupal::routeMatch()->getRouteName();
     if ($route_name === GDX_ANALYTICS_SETTINGS_FORM_ROUTE) {
       $messenger->addWarning(GDX_ANALYTICS_WARNING_CONFIG);
     } else {
