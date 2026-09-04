@@ -2,7 +2,7 @@ name: 'GDX Analytics Drupal Snowplow'
 type: module
 description: 'Configures the Javascript tracker for the BC Government GDX Analytics Snowplow pipeline.'
 core: 8.x
-core_version_requirement: ^8 || ^9 || ^10
+core_version_requirement: ^8 || ^9 || ^10 || ^11
 package: 'Analytics'
-version: '4.1.0'
+version: '4.2.0'
 configure: gdx_analytics_drupal_snowplow.gdx_analytics_drupal_snowplow_settings_form
